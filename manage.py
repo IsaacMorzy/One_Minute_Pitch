@@ -1,7 +1,8 @@
 from app import create_app,db
+from app.models import User
 from flask_script import Manager,Server
 # Connect to models
-from app.models import User
+
 from flask_migrate import Migrate,MigrateCommand
 
 # Creating app instance
@@ -9,13 +10,9 @@ from flask_migrate import Migrate,MigrateCommand
 app = create_app('development')
 # app = create_app('production')
 
-
 # Create manager instance 
 manager = Manager(app)
-
-# Create migrate instance
-migrate = Migrate(app,db)
-
+migrate = Migrate(app,db)# Create migrate instance
 manager.add_command('server',Server)
 manager.add_command('db',MigrateCommand)
 
