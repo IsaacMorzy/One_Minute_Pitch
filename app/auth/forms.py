@@ -5,7 +5,7 @@ from ..models import User
 
 class LoginForm(FlaskForm):
     '''
-    Function to create a wtf form for logging
+    Function to create a wtf form for logging 
     '''
     email = StringField('Your Email Address', validators=[Required(),Email()])
     password = StringField('Password', validators=[Required()])
