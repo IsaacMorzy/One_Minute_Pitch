@@ -17,7 +17,7 @@ class RegistrationForm(FlaskForm):
     Function to create a wtf form for registering
     '''
     email = StringField('Your Email Address', validators=[Required(),Email()])
-    username = StringField('Enter your username', validators=[Required()])
+    name = StringField('Enter your username', validators=[Required()])
     password = PasswordField('Password', validators=[Required(), EqualTo('password_confirm', message="Passwords must match")])
     password_confirm = PasswordField('Confirm Passwords', validators=[Required()])
     submit = SubmitField('Sign Up')
@@ -26,6 +26,6 @@ class RegistrationForm(FlaskForm):
         if User.query.filter_by(email=data_field.data).first():
             raise ValidationError('There is an account with that email')
 
-    def validate_username(self,data_field):
-        if User.query.filter_by(username=data_field.data).first():
+    def validate_name(self,data_field):
+        if User.query.filter_by(name = data_field.data).first():
             raise ValidationError('The username is taken')
