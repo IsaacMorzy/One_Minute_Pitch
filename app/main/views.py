@@ -3,7 +3,7 @@ from . import main
 from flask import render_template,request,redirect,url_for,abort
 from .forms import ReviewForm,UpdateProfile
 from flask_login import login_required,current_user
-from ..import db
+from ..import db photos
 #.....
 @main.route('/user/<uname>')
 def profile(uname):
@@ -36,7 +36,7 @@ def update_profile(uname):
 @main.route('/user/<uname>/update/pic',methods= ['POST'])
 @login_required
 def update_pic(uname):
-    user = User.query.filter_by(username = uname).first()
+    user = User.query.filter_by(name = uname).first()
     if 'photo' in request.files:
         filename = photos.save(request.files['photo'])
         path = f'photos/{filename}'
