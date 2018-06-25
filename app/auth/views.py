@@ -4,11 +4,16 @@ from ..models import User
 from .forms import RegistrationForm,LoginForm
 from ..import db
 from flask_login import login_user,logout_user,login_required
-import email
+
+
 
 
 @auth.route('/login',methods = ["GET","POST"])
 def login():
+    """
+    For GET requests, display the login form. 
+    For POSTS, login the current user by processing the form.
+    """
     login_form = LoginForm()
     if login_form.validate_on_submit():
         user = User.email.filter_by(email = login_form.email.data).first()
@@ -32,8 +37,8 @@ def logout():
 def register():
     registration_form= RegistrationForm()
 
-    if form.validate_on_submit():
-        user = User(email = form.email.data,name = form.name.data,password = form.password.data)
+    if registration_form.validate_on_submit():
+        user = User(email = registration_form.email.data,name = registration_form.name.data,password = registration_form.password.data)
 
         db.session.add(user)
         db.session.commit()
