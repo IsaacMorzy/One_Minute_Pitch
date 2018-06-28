@@ -5,6 +5,9 @@ from .import login_manager
 from datetime import datetime
 
 
+
+
+
 @login_manager.user_loader
 def load_user(user_id):
     '''
@@ -28,7 +31,7 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(100),unique = True, index=True)
 
     #password column for passwords
-    password = db.Column(db.String(100))
+    password_hash= db.Column(db.String(100))
     profile_pic_path = db.Column(db.String()) 
     bio = db.Column(db.String(100))  
     photos = db.relationship('PhotoProfile',backref = 'user',lazy = "dynamic")
@@ -36,7 +39,6 @@ class User(UserMixin,db.Model):
     @property
     def password(self):
         raise AttributeError('You cannot read the password attribute')
-
     @password.setter
     def password(self,password):
         self.password_hash = generate_password_hash(password)
@@ -68,3 +70,57 @@ class Role(db.Model):
 
     def __repr__(self):
         return f'User {self.name}'
+
+class Category(db.Model):
+    '''
+    category class to define the categories of pitches
+    '''
+    __tablename__ = 'categories'
+    id = db.Column(db.Integer,primary_key = True)
+    name = db.Column(db.String(100))
+    pitches= db.relationship('Pitch', backref='category', lazy='dynamic')
+
+    def save_category(self):
+        '''
+        function that saves a new category to the category's table
+        '''
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_categories(cls):
+        '''
+        function that queries the category table 
+        returns:
+            categories:all the details in the category table
+        '''
+        categories = Category.query.all()
+        return categories
+
+class Pitch(db.Model):
+    '''
+    Pitch class to define pitches
+    '''
+    __tablename__ = 'pitches'
+    id =  db.Column(db.Integer,primary_key= True)
+    pitch = db.Column(db.String(100))
+    category_id= db.Column(db.Integer,db.ForeignKey("categories.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    def save_pitch(self):
+        '''
+        functon that saves a new pitch to the pitches
+        '''
+        db.session.add(self)
+        db.session.commit()
+    @classmethod
+    def get_pitches(cls,category_id):
+            '''
+            Function that queries the pitches table in the database
+            Args:
+                category_id : specific category_id
+             Returns:
+                pitches:pitches with the specific category_id
+                '''
+            pitches = Pitch.query.order_by(Pitch.id.desc()).filter_by(category_id=category_id).all()
+
+            return pitches

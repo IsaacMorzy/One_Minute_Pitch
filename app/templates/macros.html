@@ -1,0 +1,76 @@
+<!-- Display categories -->
+{% macro displayCategoryList(category_list) %}
+
+
+    {% for category in category_list %}
+        <div class="row">
+            
+            <div class="col-md-2 col-lg-2">
+                
+            </div>
+
+            <div class=" col-xs-12 col-sm-12 col-md-8 col-lg-8 well category-well">
+            
+                <li class="text-center">
+
+                    <h3 class="category-name">
+
+                        <a href="/category/{{category.id}}">
+                            {{ category.name }}   
+                        </a>
+                        
+                    </h3>
+
+                </li>
+
+            </div>
+
+            <div class="col-md-2 col-lg-2">
+                
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+{% endmacro %}
+
+{% macro displayPitchList(pitch_list) %}
+
+
+    {% for pitch in pitch_list %}
+        <div class="row">
+            
+            <div class="col-md-2 col-lg-2">
+                
+            </div>
+
+            <div class=" col-xs-12 col-sm-12 col-md-8 col-lg-8 well line-well">
+            
+                <li class="text-center">
+
+                    <h3>
+
+                        <a href="{{url_for('main.new_pitch', id = pitch.id )}}" class="pitch-content">
+                            {{pitch.pitch }}
+                        </a>
+
+                        <br>
+
+                        <small class="pitch-author"> by {{ pitch.user_id.name }} </small>
+                        
+                    </h3>
+
+                </li>
+
+            </div>
+
+            <div class="col-md-2 col-lg-2">
+                
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+{% endmacro %}

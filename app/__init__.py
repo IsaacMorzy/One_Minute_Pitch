@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_uploads import UploadSet,configure_uploads,IMAGES
 from flask_mail import Mail
 
+
 # Instance of LoginManger and using its methods
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'

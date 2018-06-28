@@ -1,0 +1,37 @@
+{%extends 'base.html'%}
+{%import 'macros.html' as macros%}
+
+{% block content %}
+
+<title> {{ title }} </title>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-4 col-lg4">
+
+            <h2 class="category-header">
+                List of {{category.name}}
+            </h2>
+
+        </div>
+
+        <div class="col-md-4 col-lg4">
+            
+
+        </div>
+        <div class='col-md-4 col-lg-4'>
+            <h2 class='create-pitch'>
+                <a href="{{url_for('main.new_pitch' ,id=category.id)}}">
+                Write pitch
+                </a>
+            </h2>
+        </div>
+        </div>
+        <hr>
+        <ul class='list-pitch'>
+            {{macros.displayPitchList(pitches)}}
+        </ul>
+        </div>
+        {%endblock %}
