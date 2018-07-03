@@ -2,7 +2,7 @@
 Web app where users will submit their one minute pitches and other users will vote on them and leave comments to give their feedback on them
 
 ## Description
-[This](https://pythonkuapp.m) is a web application that allows users to submit a pitch. Also, other users are allowed to vote on submitted pitches and leave comments to give their feedback on the pitches. For a user to submit a pitch, vote on a pitch or give feedback on a pitch they need to have an account. <br>
+[This](https://pitchez.herokuapp.com/) is a web application that allows users to submit a pitch. Also, other users are allowed to vote on submitted pitches and leave comments to give their feedback on the pitches. For a user to submit a pitch, vote on a pitch or give feedback on a pitch they need to have an account. <br>
 
 The pitches are organized by categories. Examples of categories: <br> 
 - pickup lines
@@ -22,7 +22,7 @@ As a user I would like:
 | Behavior        | Input           | Outcome  |
 | ------------- |:-------------:| -----:|
 | Register to be a user | Your email : jane@doe.com <br> Username : jane101 <br> Password : doe1 | New user is registered |
-| Log in | Your email : jane@doe.com <br> Password : doe1 | Logged in |
+| Log in | Your email : zack@gmail.com <br> Password : doe1 | Logged in |
 | Display pitch categories | N/A | List of various pitch categories |
 | See pitches from selected category | **Click** a category | Directed to a page with a list of pitches from the selected category |
 | Create a pitch | **Click Create A Pitch** | An authenticated user is directed to a page with a form where the user can create and submit a pitch |
@@ -33,11 +33,11 @@ As a user I would like:
 
 ## Setup/Installation Requirements
 
-* Click [One Minute Pitch](https://) <br/>
+* Click [One Minute Pitch](https://pitchez.herokuapp.com/) <br/>
   or <br/>
-* Copy [One Minute Pitch](https) and  Paste the link on your prefered browerser
+* Copy [One Minute Pitch](https://pitchez.herokuapp.com/) and  Paste the link on your prefered browser
 
-This requires internet connection.
+Note: Requires internet connection.
 
 ## Known Bugs
 

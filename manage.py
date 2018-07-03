@@ -1,5 +1,5 @@
 from app import create_app,db
-from app.models import User,Pitch,Comment
+from app.models import User,Pitch,Comment,Category
 from flask_script import Manager,Server
 # Connect to models
 
@@ -28,7 +28,7 @@ def test():
 
 @manager.shell
 def make_shell_context():
-    return dict( app=app, db=db, User=User,Comment=Comment)
+    return dict( app=app, db=db, User=User,Category=Category,Comment=Comment)
 
 
 if __name__ == '__main__':
