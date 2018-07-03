@@ -1,7 +1,7 @@
-from ..models import User,PhotoProfile,Category,Pitch
+from ..models import User,PhotoProfile,Category,Pitch,Comment
 from . import main
 from flask import render_template,request,redirect,url_for,abort
-from .forms import CategoryForm,PitchesForm,UpdateProfile
+from .forms import CategoryForm,PitchesForm,CommentForm,UpdateProfile
 from flask_login import login_required,current_user
 from ..import db,photos
 
@@ -32,7 +32,7 @@ def new_category():
         new_category = Category(name=name)
         new_category.save_category()
         return redirect(url_for('.index'))
-        title = 'New Category'
+    title = 'New Category'
     return render_template('new_category.html',title=title,category_form=form)
 
 @main.route('/category/<int:id>')
@@ -47,7 +47,7 @@ def category(id):
         abort(404)
 
     pitches = Pitch.get_pitches(id)
-    title = f'{category.name} page'
+    title = f'{category.name} page' 
 
     return render_template('category.html', title=title, category=category, pitches=pitches)
 
@@ -70,6 +70,53 @@ def new_pitch(id):
 
     title='New Pitch'
     return render_template('new_pitch.html',title=title,pitch_form=form,category=category)
+    # return render_template('new_pitch.html')
+
+@main.route('/pitch/<int:id>')
+def pitch(id):
+
+    '''
+    View pitch function that returns a page containing a pitch, its comments and votes
+    '''
+    pitch = Pitch.query.get(id)
+    
+    if pitch is None:
+        abort(404)
+
+    comments = Comment.get_comments(id)
+
+    # vote = Vote.query.all()
+
+    # total_votes = Vote.num_vote(pitch.id)
+
+    title = f'Pitch {pitch.id}'
+
+    return render_template('pitch.html', title=title, pitch=pitch, comments=comments)
+
+
+@main.route('/category/pitch/newcomment/<int:id>', methods=['GET','POST'])
+@login_required
+def new_comment(id):
+
+    '''
+    View new pitch route function that returns a page with a form to create a pitch for the specified category
+    '''
+    pitch = Pitch.query.filter_by(id=id).first()
+
+    if pitch is None:
+        abort(404)
+
+    form = CommentForm()
+
+    if form.validate_on_submit():
+        comment= form.comment.data
+        new_comment = Comment( comment=comment, pitch_id=pitch.id, user_id=current_user.id)
+        new_comment.save_comment()
+
+        return redirect(url_for('.pitch', id=pitch.id ))
+
+    title = 'New Comment'
+    return render_template('new_comment.html', title=title, comment_form=form)
 
 @main.route('/user/<uname>')
 def profile(uname):

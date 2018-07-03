@@ -5,9 +5,6 @@ from .import login_manager
 from datetime import datetime
 
 
-
-
-
 @login_manager.user_loader
 def load_user(user_id):
     '''
@@ -103,9 +100,11 @@ class Pitch(db.Model):
     '''
     __tablename__ = 'pitches'
     id =  db.Column(db.Integer,primary_key= True)
-    pitch = db.Column(db.String(100))
+    pitch = db.Column(db.String(255))
     category_id= db.Column(db.Integer,db.ForeignKey("categories.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    comments = db.relationship('Comment', backref='line', lazy='dynamic')
+
     def save_pitch(self):
         '''
         functon that saves a new pitch to the pitches
@@ -124,3 +123,28 @@ class Pitch(db.Model):
             pitches = Pitch.query.order_by(Pitch.id.desc()).filter_by(category_id=category_id).all()
 
             return pitches
+
+class Comment(db.Model):
+    '''
+    Class to define feedback of pitches
+    '''
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key = True)
+    comment= db.Column(db.String)
+    pitch_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id") )
+
+    def save_comment(self):
+        '''
+        function that saves a new comment 
+        '''
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls,pitch_id):
+        '''
+        function that queries the comments table and returns comments with a specific pitch_id
+        '''
+        comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+        return comments

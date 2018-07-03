@@ -23,7 +23,7 @@
         </div>
         <div class='col-md-4 col-lg-4'>
             <h2 class='create-pitch'>
-                <a href="{{url_for('main.new_pitch' ,id=category.id)}}">
+                <a href="{{url_for('main.new_pitch',id=category.id)}}">
                 Write pitch
                 </a>
             </h2>
@@ -31,7 +31,7 @@
         </div>
         <hr>
         <ul class='list-pitch'>
-            {{macros.displayPitchList(pitches)}}
+            {{ macros.displayPitchList(pitches) }}
         </ul>
         </div>
         {%endblock %}

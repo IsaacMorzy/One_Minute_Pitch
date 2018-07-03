@@ -1,8 +1,5 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {%import 'bootstrap/wtf.html' as wtf%}
-{%import 'macros.html' as macro %}
-
-<!-- Content block -->
 {% block content %}
     <title> {{ title }} </title>
     
@@ -14,10 +11,10 @@
                 
             </div>
 
-            <div class=" col-xs-12 col-sm-12 col-md-8 col-lg-8 create-category">
+            <div class=" col-xs-12 col-sm-12 col-md-8 col-lg-8 create-comment">
             
-                {{ wtf.quick_form(category_form) }}
-            
+                {{ wtf.quick_form(comment_form) }}
+                
             </div>
 
             <div class="col-md-2 col-lg-2">
